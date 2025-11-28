@@ -28,7 +28,7 @@ Admin Panel
 Technologies Used
 
 - Backend: Django (Python)
-- Frontend: HTML, CSS, Bootstrap
+- Frontend: HTML, TailwindCSS
 - Database: SQLite (default)
 - Authentication: Django Auth System
 - Environment: Virtual Environment (venv)
