@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+<script src="https://cdn.tailwindcss.com"></script>
+
+{% block content %}
+<div class="bg-white p-6 rounded shadow max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4">{{ quiz.title }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">Fill the Answer</label>
+            <input type="text" name="name" required
+                   class="w-full border p-2 rounded">
+        </div>
+
+        {% for q in questions %}
+        <div class="mb-6">
+            <p class="font-semibold mb-2">{{ forloop.counter }}. {{ q.text }}</p>
+
+            {% for a in q.answer_set.all %}
+            <label class="block">
+                <input type="radio" name="{{ q.id }}" value="{{ a.id }}" required>
+                {{ a.text }}
+            </label>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <button type="submit"
+                class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+            Submit Quiz
+        </button>
+    </form>
+</div>
+{% endblock %}

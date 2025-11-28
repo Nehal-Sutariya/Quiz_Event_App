@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+<script src="https://cdn.tailwindcss.com"></script>
+
+{% block content %}
+<p>Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
+
+<h2 class="text-3xl font-bold mb-6">Available Quizzes</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {% for quiz in quizzes %}
+    <div class="bg-white p-6 rounded shadow">
+        <h3 class="text-xl font-bold mb-2">{{ quiz.title }}</h3>
+        <p class="text-gray-600 mb-4">{{ quiz.description }}</p>
+        <a href="/quiz/{{ quiz.id }}/"
+           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+           Start Quiz
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

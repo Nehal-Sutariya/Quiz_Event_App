@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+<script src="https://cdn.tailwindcss.com"></script>
+
+{% block content %}
+<div class="bg-white p-8 rounded shadow max-w-md mx-auto text-center">
+    <h1 class="text-3xl font-bold mb-4">Your Result</h1>
+
+    <p class="text-xl mb-6">
+        Score: <span class="font-bold text-green-600">{{ score }}</span> / {{ total }}
+    </p>
+
+    <a href="/quizzes/"
+       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+       Try Another Quiz
+    </a>
+</div>
+{% endblock %}
