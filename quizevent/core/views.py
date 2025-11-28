@@ -19,43 +19,6 @@ def quiz_list(request):
     return render(request, 'core/quiz_list.html', {'quizzes': quizzes})
 
 
-# def quiz_attempt(request, id):
-#     quiz = get_object_or_404(Quiz, id=id)
-#     questions = Question.objects.filter(quiz=quiz)
-
-#     if request.method == "POST":
-#         name = request.POST.get('name')
-#         score = 0
-
-#         submission = UserSubmission.objects.create(
-#             quiz=quiz, user_name=name, score=0
-#         )
-
-#         for q in questions:
-#             selected = request.POST.get(str(q.id))
-#             ans = Answer.objects.get(id=selected)
-
-#             if ans.is_correct:
-#                 score += 1
-
-#             UserAnswer.objects.create(
-#                 submission=submission,
-#                 question=q,
-#                 answer=ans.text,
-#                 is_correct=ans.is_correct
-#             )
-
-#         submission.score = score
-#         submission.save()
-
-#         return render(request, 'core/result.html', {'score': score})
-
-#     return render(request, 'core/quiz_attempt.html', {'quiz': quiz, 'questions': questions})
-
-
-# def events(request):
-#     events = Event.objects.all()
-#     return render(request, 'core/events.html', {'events': events})
 
 
 def quiz_attempt(request, id):
@@ -75,7 +38,7 @@ def quiz_attempt(request, id):
         for q in questions:
             selected_answer_id = request.POST.get(str(q.id))
 
-            # ✅ SAFETY CHECK (THIS PREVENTS YOUR ERROR)
+            # SAFETY CHECK
             if not selected_answer_id:
                 continue
 
@@ -111,7 +74,8 @@ def quiz_attempt(request, id):
 def events(request):
     events = Event.objects.all()
     return render(request, 'core/events.html', {'events': events})
-
+    
+# LOGIN
 def login_user(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -128,7 +92,7 @@ def login_user(request):
     return render(request, 'core/login.html')
 
 
-# ---------------- REGISTER ----------------
+# REGISTER
 def register_user(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -147,13 +111,13 @@ def register_user(request):
     return render(request, 'core/register.html')
 
 
-# ---------------- LOGOUT ----------------
+# LOGOUT
 def logout_user(request):
     logout(request)
     return redirect('login')
 
 
-# ---------------- HOME ----------------
+# HOME
 @login_required
 def home(request):
     return render(request, 'core/home.html')
@@ -161,4 +125,5 @@ def home(request):
 @login_required
 def event_list(request):
     events = Event.objects.all().order_by('date')
+
     return render(request, 'core/events.html', {'events': events})
